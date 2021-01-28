@@ -5,22 +5,25 @@
 
 using std::cout;
 
-void showCommandLine(std::vector<std::string> args) {
-   cout << "Your command line was:\n";
-   for (const auto s : args)
-      cout << s << " ";
-   cout << "\n";
-}
-int main(int argc, const char **argv) {
-   cout << argc << " arguments, program name is " << argv[0] << "\n";
 
-   std::vector<std::string> args;
-   for (int index = 0; index < argc; index++) {
-      args.push_back(argv[index]);
-   }
+int main() {
+  int x;
+  int y;
+  int *xPtr = &x;
+  x = 13;
+  cout << x << "\n";
+  cout << xPtr << "\n";
+  cout << *xPtr << "\n";
+  cout << &y << "\n";
+  --xPtr;
+  *xPtr = 14;
+  cout << y << "\n";
+  cout << &xPtr << "\n";
+  cout << sizeof(xPtr) << "\n";
 
-   showCommandLine(args);
+  int array[10] = {1,2,3,4};
+  int *aPtr = array;
+  ++aPtr;
+  cout << *aPtr << "\n";
 
-   Foo f;
-   return 0;
 }
