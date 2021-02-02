@@ -1,33 +1,42 @@
-#include "Foo.hpp"
+#include <fstream>
 #include <iostream>
+#include <memory>
+#include <sstream>
 #include <string>
 #include <vector>
-#include "Pet.hpp"
-#include <memory>
-using std::unique_ptr;
-using std::make_unique;
+using std::cin;
 using std::cout;
-using std::move;
-using std::vector;
 using std::make_shared;
+using std::make_unique;
+using std::move;
+using std::string;
+using std::unique_ptr;
+using std::vector;
 
 int main() {
-//   Pet dave("dave");
-//   unique_ptr<Pet> duPtr = make_unique<Pet>("uniqueBill");
-//   unique_ptr<Pet> p;
-//   p = move(duPtr);
-//   (*p).setName("will go away");
-//   p->setName("movedUniqueBill");
-//
-//   int x{6};
-//   Pet peter{"Peter"};
-//
-//   unique_ptr<Pet>(new Pet);
-   std::shared_ptr<Pet> second;
-   {
-      auto sPtr = make_shared<Pet>("sharedJenny");
-      second = sPtr;
+   //   std::ifstream fudge("64317-0.txt");
+   //
+   //   std::string test;
+   //   while (std::getline(fudge ,test)) {
+   //      cout << test << " ";
+   //   }
+
+   while (true) {
+      cout << "Enter an int and a word: ";
+      string s;
+      getline(cin, s);
+      std::istringstream sin(s);
+      int i;
+      string word;
+      sin >> i >> word;
+      if (!sin) {
+         cout << "You messed up!\n";
+         if (sin.eof())
+            cout << "Because you didn't give enough input.\n";
+         sin.clear();
+      } else
+         cout << "int was " << i << " and word was " << word << std::endl;
+      if (i == 13)
+         break;
    }
-   cout << "I am here.\n";
-   second = make_shared<Pet>("Colleen");
 }
