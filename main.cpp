@@ -16,18 +16,21 @@ using std::ostream;
 #include <iomanip>
 using std::setw;
 
-
+using std::ofstream;
+using std::ifstream;
 int main() {
-//      std::ofstream fout("example.txt");
-//      for(int i=0;i<100;++i)
-//         fout << setw(5) << i*i;
-//      fout.close();
+   int a[100] = {1,2,3};
+   int ii=256*256;
+   ofstream fout("data.dat",std::ios::binary | std::ios::out);
+   fout.write(reinterpret_cast<const char *>(&ii),sizeof(ii));
+   fout.close();
 
-      std::ifstream fin("example.txt");
+   ifstream fin("data.dat",std::ios::binary | std::ios::in);
 
-      fin.seekg(83*5);
-      int x;
-      fin >> x;
-      cout << "83 squared is " << x << std::endl;
-      return 0;
+   for(int j=0;j<4;++j) {
+      unsigned char c;
+      fin.read(reinterpret_cast<char *>(&c),sizeof(c));
+      cout << (unsigned int)(c) << std::endl;
+   }
+   return 0;
 }
