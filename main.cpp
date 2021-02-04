@@ -13,12 +13,21 @@ using std::string;
 using std::unique_ptr;
 using std::vector;
 using std::ostream;
+#include <iomanip>
+using std::setw;
 
-void output(ostream & os) {
-   os << "Hello world.\n";
-}
 
 int main() {
-      std::ofstream out("example.txt",std::ios::app);
-      out << "Hello world.\n";
+//      std::ofstream fout("example.txt");
+//      for(int i=0;i<100;++i)
+//         fout << setw(5) << i*i;
+//      fout.close();
+
+      std::ifstream fin("example.txt");
+
+      fin.seekg(83*5);
+      int x;
+      fin >> x;
+      cout << "83 squared is " << x << std::endl;
+      return 0;
 }
