@@ -3,4 +3,4 @@ project(CS202ClassExample)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(CS202ClassExample main.cpp )
+add_executable(CS202ClassExample main.cpp tests.cpp)
