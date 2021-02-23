@@ -15,17 +15,16 @@ class Rational {
    friend bool operator==(const Rational &lhs, const Rational &rhs);
    friend bool operator<(const Rational &lhs, const Rational &rhs);
 
-
 public:
-   Rational(int,int=1);
+   Rational(int,int=1); //NOLINT(google-explicit-constructor): Allow implicit conversion from int
    Rational & operator+=(const Rational& rhs);
    Rational & operator-=(const Rational& rhs);
    Rational & operator*=(const Rational& rhs);
    Rational & operator/=(const Rational& rhs);
-   Rational & operator++();    //prefix ++
-   Rational operator++(int); //postfix ++
-   Rational & operator--();    //prefix --
-   Rational operator--(int); //postfix --
+   Rational & operator++();        //prefix ++
+   const Rational operator++(int); //postfix ++
+   Rational & operator--();        //prefix --
+   const Rational operator--(int); //postfix --
 private:
    void reduce();
 
