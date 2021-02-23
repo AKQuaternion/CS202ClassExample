@@ -27,3 +27,10 @@ TEST_CASE("Rationals can be added with + and +="){
    out << x;
    REQUIRE(out.str() == "8/4"); //Fix reducing fractions and outputting if denominator is 1
 }
+
+TEST_CASE("gcd works") {
+   REQUIRE(gcd(5,0)==5);
+   REQUIRE(gcd(0,5)==5);
+   REQUIRE(gcd(7,13)==1);
+   REQUIRE(gcd(16,36)==4);
+}

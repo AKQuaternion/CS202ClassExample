@@ -17,5 +17,6 @@ private:
    int _denominator;
 };
 
+int gcd(int a, int b);
 
 #endif//CS202CLASSEXAMPLE_RATIONAL_HPP
