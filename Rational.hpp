@@ -22,9 +22,9 @@ public:
    Rational & operator*=(const Rational& rhs);
    Rational & operator/=(const Rational& rhs);
    Rational & operator++();        //prefix ++
-   const Rational operator++(int); //postfix ++
+   Rational operator++(int); //postfix ++
    Rational & operator--();        //prefix --
-   const Rational operator--(int); //postfix --
+   Rational operator--(int); //postfix --
 private:
    void reduce();
 
