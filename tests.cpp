@@ -92,3 +92,26 @@ TEST_CASE("increment nd decrement") {
    REQUIRE(x++ == Rational{4,3});
    REQUIRE(x == Rational{7,3});
 }
+
+#include "SmartArray.hpp"
+
+void foo(const SmartArray &s) {
+   // cout size
+}
+
+TEST_CASE("Smart Arrays") {
+SmartArray sa(10);
+sa[0]=13;
+REQUIRE(sa.size()==10);
+REQUIRE(sa[0]==13);
+const SmartArray csa(sa);
+REQUIRE(csa[0]==13);
+// csa[1]=5; //causes compile error
+SmartArray sa2(30);
+sa2 = sa;
+
+sa2 = sa2;
+
+foo(SmartArray(13));
+sa.size();
+}
