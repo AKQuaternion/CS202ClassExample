@@ -3,4 +3,4 @@ project(CS202ClassExample)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(CS202ClassExample main.cpp tests.cpp Rational.cpp Rational.hpp SmartArray.cpp SmartArray.hpp)
+add_executable(CS202ClassExample main.cpp)
