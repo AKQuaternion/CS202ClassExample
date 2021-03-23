@@ -3,32 +3,62 @@
 using std::cout;
 using std::cin;
 using std::optional;
+#include <string>
+using std::string;
 
-optional<int> getNumBooks() {
-   cout << "How many books would you like to buy? ";
-   int numBooks;
-   cin >> numBooks;
-   if (!cin) {
-      cin.clear();
-      cin.ignore(999,'\n');
-      return {};
+class Shape {
+public:
+   Shape(const string &color) : _color(color)
+   {}
+   string getColor() const {
+      return _color;
    }
-   if (numBooks<0)
-      return {};
-   return numBooks;
-}
+   void setColor(const string &newColor) {
+      _color = newColor;
+   }
+   void describe() {
+      cout << "I am a base class Shape.\n";
+   }
+private:
+   string _color;
+};
+
+class Circle : public Shape {
+public:
+   using Shape::Shape;
+
+   Circle(double radius) : Shape("Turquoise"),_radius(radius)
+   {}
+   double getRadius() const {
+      return _radius;
+   }
+   void setRadius(double newRadius) {
+      _radius = newRadius;
+   }
+   void describe() {
+      cout << "I am a Circle.\n";
+   }
+private:
+   double _radius;
+};
 
 int main() {
-   int booksSoldSoFar = 0;
-   for(int i=0;i<10;++i) {
-      auto howMany = getNumBooks();
-      if (howMany)//can also use howMany.has_value()
-         cout << "The customer wanted " << howMany.value() << " books.\n";
-      else
-         cout << "The customer did not enter a valid value.\n";
+   Shape s("Red");
+   cout << s.getColor() << "\n";
 
-      booksSoldSoFar += howMany.value_or(0);
-      cout << booksSoldSoFar << " books have been sold.\n";
-   }
+   s.setColor("Green");
+   cout << s.getColor() << "\n";
+
+   Circle c(13.3);
+   c.setRadius(5.4);
+
+   Circle anotherCircle("Pink");
+
+   c.setColor("Chartreuse");
+
+   cout << c.getColor() << "\n";
+
+   c.describe();
+   s.describe();
    return 0;
 }
