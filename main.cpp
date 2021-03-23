@@ -3,8 +3,6 @@
 using std::cout;
 using std::cin;
 using std::optional;
-#include <string>
-using std::string;
 
 optional<int> getNumBooks() {
    cout << "How many books would you like to buy? ";
