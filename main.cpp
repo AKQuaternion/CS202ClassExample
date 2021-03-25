@@ -1,7 +1,7 @@
 #include <iostream>
 #include <optional>
-using std::cout;
 using std::cin;
+using std::cout;
 using std::optional;
 #include <string>
 using std::string;
@@ -9,16 +9,16 @@ using std::string;
 
 class Shape {
 public:
-   Shape(const string &color) : _color(color)
-   {}
+   Shape(const string &color) : _color(color) {}
    string getColor() const {
       return _color;
    }
    void setColor(const string &newColor) {
       _color = newColor;
    }
-   virtual void describe() const =0;
+   virtual void describe() const = 0;
    virtual ~Shape() = default;
+
 private:
    string _color;
 };
@@ -27,8 +27,7 @@ class Circle : public Shape {
 public:
    using Shape::Shape;
 
-   Circle(double radius) : Shape("Turquoise"),_radius(radius)
-   {}
+   Circle(double radius) : Shape("Turquoise"), _radius(radius) {}
    double getRadius() const {
       return _radius;
    }
@@ -36,8 +35,14 @@ public:
       _radius = newRadius;
    }
    virtual void describe() const override {
+      // describe is virtual in the base class, so it
+      // is virtual here. You do not need to repeat the virtual keyword. But you
+      // should use the "override" as above. This will let the compiler warn you
+      // if you do something wrong. What happens if you make the above function
+      // const (as it really should be!?)
       cout << "I am a Circle.\n";
    }
+
 private:
    double _radius;
 };
@@ -46,8 +51,7 @@ class Square : public Shape {
 public:
    using Shape::Shape;
 
-   Square(double sideLength) : Shape("Turquoise"),_sideLength(sideLength)
-   {}
+   Square(double sideLength) : Shape("Turquoise"), _sideLength(sideLength) {}
    double getSideLength() const {
       return _sideLength;
    }
@@ -57,6 +61,7 @@ public:
    virtual void describe() const override {
       cout << "I am a Square.\n";
    }
+
 private:
    double _sideLength;
 };
@@ -69,13 +74,13 @@ std::unique_ptr<Shape> getShape(char c) {
 
    switch (c) {
       case 's':
-      case 'S': // square
+      case 'S':// square
          return std::make_unique<Square>("Red");
       case 'c':
-      case 'C': // circle
+      case 'C':// circle
          return std::make_unique<Circle>("Red");
       case 'r':
-      case 'R': // random
+      case 'R':// random
          if (flip(e1) == 0)
             return std::make_unique<Square>("Red");
          else
@@ -86,23 +91,23 @@ std::unique_ptr<Shape> getShape(char c) {
 }
 
 int main() {
-//   Square s("Red");
-////   cout << s.getColor() << "\n";
-//
-//   s.setColor("Green");
-////   cout << s.getColor() << "\n";
-//
-//   Circle c(13.3);
-//   c.setRadius(5.4);
-//
-//   Circle anotherCircle("Pink");
-//
-//   c.setColor("Chartreuse");
-//
-////   cout << c.getColor() << "\n";
-//
-////   c.describe();
-////   s.describe();
+   //   Square s("Red");
+   ////   cout << s.getColor() << "\n";
+   //
+   //   s.setColor("Green");
+   ////   cout << s.getColor() << "\n";
+   //
+   //   Circle c(13.3);
+   //   c.setRadius(5.4);
+   //
+   //   Circle anotherCircle("Pink");
+   //
+   //   c.setColor("Chartreuse");
+   //
+   ////   cout << c.getColor() << "\n";
+   //
+   ////   c.describe();
+   ////   s.describe();
 
    auto shapePtr = getShape('r');
    shapePtr->describe();
