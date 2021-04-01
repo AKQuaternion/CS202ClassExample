@@ -6,110 +6,49 @@ using std::optional;
 #include <string>
 using std::string;
 #include <random>
+#include <vector>
+using std::vector;
 
-class Shape {
-public:
-   explicit Shape(const string &color) : _color(color) {}
-   [[nodiscard]] string getColor() const {
-      return _color;
-   }
-   void setColor(const string &newColor) {
-      _color = newColor;
-   }
-   virtual void describe() const = 0;
-   virtual ~Shape() = default;
+template<typename T>
+void printVector(const vector<T> &v) {
+   for(const T &i:v)
+      cout << i << " ";
+   cout << "\n";
+}
 
-private:
-   string _color;
+template<typename R, typename S>
+void printTwo(R r, S s){
+   cout << r << " " << s << "\n";
+}
+
+template<typename X>
+X square(X x) {
+      return x*x;
 };
 
-class Circle : public Shape {
-public:
-   using Shape::Shape;
-
-   explicit Circle(double radius) : Shape("Turquoise"), _radius(radius) {}
-   double getRadius() const {
-      return _radius;
-   }
-   void setRadius(double newRadius) {
-      _radius = newRadius;
-   }
-   void describe() const override {
-      // describe is virtual in the base class, so it
-      // is virtual here. You do not need to repeat the virtual keyword. But you
-      // should use the "override" as above. This will let the compiler warn you
-      // if you do something wrong. What happens if you make the above function
-      // const (as it really should be!?)
-      cout << "I am a Circle.\n";
-   }
-
-private:
-   double _radius{};
-};
-
-class Square : public Shape {
-public:
-   using Shape::Shape;
-
-   explicit Square(double sideLength) : Shape("Turquoise"), _sideLength(sideLength) {}
-   [[nodiscard]] double getSideLength() const {
-      return _sideLength;
-   }
-   void setSideLength(double sideLength) {
-      _sideLength = sideLength;
-   }
-   void describe() const override {
-      cout << "I am a Square.\n";
-   }
-
-private:
-   double _sideLength;
-};
-
-
-std::unique_ptr<Shape> getShape(char c) {
-   static std::random_device r;
-   static std::default_random_engine e1(r());
-   static std::uniform_int_distribution<int> flip(0, 1);
-
-   switch (c) {
-      case 's':
-      case 'S':// square
-         return std::make_unique<Square>("Red");
-      case 'c':
-      case 'C':// circle
-         return std::make_unique<Circle>("Red");
-      case 'r':
-      case 'R':// random
-         if (flip(e1) == 0)
-            return std::make_unique<Square>("Red");
-         else
-            return std::make_unique<Circle>("Red");
-      default:
-         throw std::runtime_error("Bad character parameter in getShape(c)");
-   }
+float square(float f) {
+   cout << "I don't like floats!\n";
+   return f*f;
 }
 
 int main() {
-   //   Square s("Red");
-   ////   cout << s.getColor() << "\n";
-   //
-   //   s.setColor("Green");
-   ////   cout << s.getColor() << "\n";
-   //
-   //   Circle c(13.3);
-   //   c.setRadius(5.4);
-   //
-   //   Circle anotherCircle("Pink");
-   //
-   //   c.setColor("Chartreuse");
-   //
-   ////   cout << c.getColor() << "\n";
-   //
-   ////   c.describe();
-   ////   s.describe();
+   vector<double> v{1.1,2.2,3.3,6.6,5.5,4.4};
+   printVector(v);
+   std::sort(v.begin(),v.end());
+   printVector(v);
 
-   auto shapePtr = getShape('r');
-   shapePtr->describe();
+   vector<char> x{'a','b','c'};
+   printVector(x);
+
+   printTwo("hello",14.156);
+
+   cout << square(4) << "\n";
+   cout << square(4.5) << "\n";
+   cout << square(13.3f) << "\n";
+
+   int h;
+   cout << &h << "\n";
+   auto s = "hello";
+   cout << s << "\n";
    return 0;
 }
