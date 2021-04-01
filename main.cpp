@@ -9,8 +9,8 @@ using std::string;
 
 class Shape {
 public:
-   Shape(const string &color) : _color(color) {}
-   string getColor() const {
+   explicit Shape(const string &color) : _color(color) {}
+   [[nodiscard]] string getColor() const {
       return _color;
    }
    void setColor(const string &newColor) {
@@ -27,14 +27,14 @@ class Circle : public Shape {
 public:
    using Shape::Shape;
 
-   Circle(double radius) : Shape("Turquoise"), _radius(radius) {}
+   explicit Circle(double radius) : Shape("Turquoise"), _radius(radius) {}
    double getRadius() const {
       return _radius;
    }
    void setRadius(double newRadius) {
       _radius = newRadius;
    }
-   virtual void describe() const override {
+   void describe() const override {
       // describe is virtual in the base class, so it
       // is virtual here. You do not need to repeat the virtual keyword. But you
       // should use the "override" as above. This will let the compiler warn you
@@ -44,21 +44,21 @@ public:
    }
 
 private:
-   double _radius;
+   double _radius{};
 };
 
 class Square : public Shape {
 public:
    using Shape::Shape;
 
-   Square(double sideLength) : Shape("Turquoise"), _sideLength(sideLength) {}
-   double getSideLength() const {
+   explicit Square(double sideLength) : Shape("Turquoise"), _sideLength(sideLength) {}
+   [[nodiscard]] double getSideLength() const {
       return _sideLength;
    }
    void setSideLength(double sideLength) {
       _sideLength = sideLength;
    }
-   virtual void describe() const override {
+   void describe() const override {
       cout << "I am a Square.\n";
    }
 
