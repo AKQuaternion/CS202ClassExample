@@ -19,7 +19,7 @@ int main() {
    auto m2 = makeMyPair(5,'%');
    cout << m2.getFirst() << " " << m2.getSecond() << "\n";
 
-//   cout << string(m2) << "\n";
+   cout << string(m2) << "\n";
    cout << m2;
    return 0;
 }

@@ -5,7 +5,7 @@
 #ifndef CS202CLASSEXAMPLE_MYPAIR_HPP
 #define CS202CLASSEXAMPLE_MYPAIR_HPP
 #include <string>
-#include <strstream>
+#include <sstream>
 #include <iostream>
 
 template<typename First, typename Second>
@@ -16,13 +16,14 @@ public:
    Second getSecond() const;
    void setFirst(First first);
    void setSecond(Second second);
-//   operator std::string() {
-//      std::ostringstream os;
-//      os << _first << " " << _second;
-//      return os.str();
-//   }
-   template<typename R, typename S>
-   friend std::ostream & operator<<(std::ostream &os, const MyPair<R,S> &m);
+   operator std::string() {
+      std::ostringstream os;
+      os << _first << " " << _second;
+      return os.str();
+   }
+
+   template<typename T, typename S>
+   friend std::ostream & operator<<(std::ostream &os, const MyPair<T,S> &m);
 private:
    First _first;
    Second _second;
