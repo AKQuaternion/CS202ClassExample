@@ -15,5 +15,11 @@ int main() {
    cout << m.getFirst() << " " << m.getSecond() << "\n";
    m.setFirst(4);
    cout << m.getFirst() << " " << m.getSecond() << "\n";
+
+   auto m2 = makeMyPair(5,'%');
+   cout << m2.getFirst() << " " << m2.getSecond() << "\n";
+
+//   cout << string(m2) << "\n";
+   cout << m2;
    return 0;
 }
