@@ -13,64 +13,108 @@ using std::vector;
 using std::begin;
 using std::end;
 using std::pair;
-#include <unordered_map>
 #include <algorithm>
+#include <array>
 #include <iostream>
 #include <iterator>
+#include <map>
 #include <numeric>
 #include <random>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
-#include <map>
-using std::unordered_map;
-using std::map;
 using std::begin;
 using std::cout;
 using std::end;
 using std::endl;
+using std::map;
 using std::pair;
 using std::sort;
 using std::string;
+using std::unordered_map;
 using std::vector;
 
-void printVector(const vector<int> &v) {
-   std::copy(begin(v), end(v), std::ostream_iterator<int>(cout, " "));
+using Rod = vector<int>;
+using Puzzle = std::array<Rod, 3>;
+
+void showPuzzle(const Puzzle &p) {
+   for(const auto &rod:p) {
+      cout << "--";
+      for (auto i : rod)
+         cout << i << "-";
+      cout << "\n";
+   }
    cout << "\n";
 }
 
-void buggyRemove1s(vector<int> &v) {
-   for (auto i = begin(v); i < end(v); ++i) {
-      while (i != end(v) && *i == 1)
-         i=v.erase(i);
+void hanoi(int n, int from, int to, Puzzle &puzzle) {
+   if (n == 0)
+      return;
+   auto other = 3-from-to;
+
+   hanoi(n-1,from,other,puzzle);
+
+   auto disc = puzzle[from].back();
+   puzzle[from].pop_back();
+   puzzle[to].push_back(disc);
+   cout << "Moved disc " << disc << " from rod " << from << " to rod " << to << "\n";
+   showPuzzle(puzzle);
+
+   hanoi(n-1,other,to,puzzle);
+}
+
+template <typename Iterator>
+void printReversed(Iterator theBegin, Iterator theEnd){
+
+}
+
+int factorial(int n)
+{
+   if (n==0)
+      return 1;
+   else
+      return n*factorial(n-1);
+}
+
+int binarySearch(const vector<int> &v, int key, int theBeg, int theEnd) {
+   while(true) {
+      if (theEnd == theBeg)
+         return -1;
+      int mid = (theBeg + theEnd) / 2;
+      if (v[mid] == key)
+         return mid;
+      if (v[mid] < key)
+         theBeg = mid;
+      else
+         theEnd = mid;
    }
 }
 
-// 1 1 2 2 5 5 1 1 6 7 1
-// 2 2 5 5 6 7 1 1 6 7 1
-//             ^
+void printDigitsReversed(int n) {
+if(n==0)
+   return;
+cout << n%10;
+printDigitsReversed(n/10);
+}
 
 int main() {
-   vector v({1, 1, 2, 2, 5, 5, 1, 1, 6, 7, 1});
-   printVector(v);
-   v.erase(std::remove(begin(v),end(v),1),end(v));
-   printVector(v);
-
-   vector<int> newVector(v.size());
-   auto nnEnd = copy_if(begin(v),end(v),begin(newVector),[](int i){return i%2==0;});
-   newVector.erase(nnEnd,end(newVector));
-   printVector(newVector);
-//   unordered_map<string,int> m;
-//   m["word"] = 13;
-//   cout << m["word"] << "\n";
-
-   vector<int> better;
-   copy_if(begin(v),end(v),std::back_inserter(better),[](int i){return i%2==0;});
-   printVector(better);
-
-   better.erase(std::unique(begin(better),end(better)),end(better));
-   printVector(better);
-   // map works on anything that has operator<
-   // unordered_map works on built in types, strings, and pointers (all kinds)
+//   vector<int> primes{2,3,5,7,11,13,17};
+//   cout << binarySearch(primes,11,0,primes.size());
+//printDigitsReversed(12345);
+//   cout << factorial(5) << "\n";
+//   string s("Hello World!");
+//   printReversed(begin(s),end(s));
+//   cout << "\n";
+//   vector<int> primes{2,3,5,7,11,13,17};
+//   printReversed(begin(primes),end(primes));
+//   cout << "\n";
+//
+   const int N = 4;
+   Puzzle p;
+   p[0].resize(N);
+   std::iota(p[0].rbegin(),p[0].rend(),1);
+   showPuzzle(p);
+   hanoi(N,0,1,p);
    return 0;
 }
